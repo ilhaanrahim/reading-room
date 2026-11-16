@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#faf9ff">
+  <meta name="description" content="A calm, private place to keep track of the books you have read.">
+  <title>The Reading Room — Your personal library</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5c0-1.1.9-2 2-2h12a2 2 0 0 1 2 2v14.8H7a3 3 0 0 1-3-3z"/><path d="M4 17a3 3 0 0 1 3-3h13M8 7h8"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.7" cy="10.7" r="6.7"/><path d="m16 16 4 4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-4 4 4-4 4 4M5 17v3h14v-3"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.75 5.58 6.16.9-4.46 4.35 1.05 6.15L12 17.08l-5.5 2.9 1.05-6.15L3.09 9.48l6.16-.9z"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="m15.5 5 3.5 3.5M4 20l3.6-.7L19.3 7.6a2.5 2.5 0 0 0-3.5-3.5L4.7 15.2z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3m-9 0 1 13h10l1-13M10 11v5m4-5v5"/></symbol>
+    <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  </svg>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#overview" aria-label="The Reading Room home">
+        <span class="brand-mark"><svg class="icon"><use href="#i-book"/></svg></span>
+        <span><strong>the reading room</strong><small>A home for your books</small></span>
+      </a>
+      <div class="nav-section"><p class="nav-label">YOUR SPACE</p>
+        <button class="nav-item active" data-view="overview"><svg class="icon"><use href="#i-grid"/></svg><span>Overview</span></button>
+        <button class="nav-item" data-view="library"><svg class="icon"><use href="#i-book"/></svg><span>My library</span><span id="nav-count" class="nav-count">0</span></button>
+      </div>
+      <div class="nav-section genres-nav"><p class="nav-label">YOUR SHELVES</p><div id="sidebar-genres" class="sidebar-genres"><p class="empty-nav">Your categories will appear here.</p></div></div>
+      <div class="side-bottom">
+        <div class="private-note"><span class="private-dot"></span><strong>YOUR SPACE, YOUR DATA</strong><p>Saved on this device. Make a backup to keep it safe.</p></div>
+        <button class="side-action" id="export-btn"><svg class="icon"><use href="#i-download"/></svg> Export backup</button>
+        <button class="side-action" id="import-btn"><svg class="icon"><use href="#i-upload"/></svg> Import backup</button>
+        <input id="import-file" type="file" accept=".json,application/json" hidden>
+        <div class="sidebar-footer">MADE FOR CURIOUS MINDS <span>✦</span></div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div class="topbar-breadcrumb"><span>PERSONAL LIBRARY</span><span class="crumb-divider">/</span><span id="breadcrumb">OVERVIEW</span></div><div class="topbar-right"><span class="local-badge"><span></span> SAVED LOCALLY</span><button class="button button-dark add-book"><svg class="icon"><use href="#i-plus"/></svg><span>Add a book</span></button></div></header>
+      <div class="mobile-nav"><button data-view="overview" class="mobile-nav-item active">Overview</button><button data-view="library" class="mobile-nav-item">My library</button><button id="mobile-backup">Backup</button></div>
+      <section class="page" id="overview-view">
+        <div class="welcome-row"><div><div class="eyebrow"><span class="eyebrow-dash"></span> YOUR READING LIFE</div><h1>A little more <em>well read.</em></h1><p class="page-intro">Every book leaves a mark. Keep track of the stories, ideas, and history you've explored.</p></div><div class="welcome-stamp" aria-hidden="true"><span>READ · REFLECT · REMEMBER ·</span><svg class="icon"><use href="#i-book"/></svg></div></div>
+        <div class="stats-grid" aria-label="Library statistics">
+          <div class="stat-card"><div class="stat-top"><span>BOOKS READ</span><span class="stat-icon sage"><svg class="icon"><use href="#i-book"/></svg></span></div><div class="stat-number" id="stat-books">0</div><p>Stories you've collected</p></div>
+          <div class="stat-card"><div class="stat-top"><span>CATEGORIES</span><span class="stat-icon sand">✦</span></div><div class="stat-number" id="stat-genres">0</div><p>Worlds you've explored</p></div>
+          <div class="stat-card"><div class="stat-top"><span>AVERAGE RATING</span><span class="stat-icon peach"><svg class="icon"><use href="#i-star"/></svg></span></div><div class="stat-number" id="stat-rating">—</div><p>Out of 10, from rated books</p></div>
+          <div class="stat-card"><div class="stat-top"><span>TOP SHELF</span><span class="stat-icon blue"><svg class="icon"><use href="#i-grid"/></svg></span></div><div class="stat-number stat-genre" id="stat-top">—</div><p id="stat-top-desc">Your most-read category</p></div>
+        </div>
+        <div class="dashboard-grid"><div class="dashboard-primary">
+          <div class="section-heading"><div><div class="section-kicker">YOUR COLLECTION</div><h2>Recently added</h2></div><button class="text-link go-library">View library <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+          <div class="recent-panel" id="recent-panel"></div>
+        </div><div class="dashboard-aside">
+          <div class="section-heading"><div><div class="section-kicker">THE BIG PICTURE</div><h2>Reading by category</h2></div></div>
+          <div class="insight-panel"><div class="insight-heading"><div><strong>Your reading mix</strong><span>A look at where your interests take you.</span></div><div class="tiny-sparkle">✦</div></div><div id="genre-chart"></div></div>
+          <div class="quote-card"><div class="quote-mark">“</div><p>A room without books is like a body without a soul.</p><span>— OFTEN ATTRIBUTED TO CICERO</span><div class="quote-art" aria-hidden="true">✦</div></div>
+        </div></div>
+        <div class="page-foot"><span>Thoughtfully kept, one book at a time.</span><span>BOOK DATA FROM <a href="https://openlibrary.org" target="_blank" rel="noopener noreferrer">OPEN LIBRARY ↗</a></span></div>
+      </section>
+      <section class="page hidden" id="library-view">
+        <div class="library-heading"><div><div class="eyebrow"><span class="eyebrow-dash"></span> THE BOOKS THAT STAY WITH YOU</div><h1>Your <em>library.</em></h1><p class="page-intro">Your collection, organized just the way you like it.</p></div><button class="button button-dark add-book"><svg class="icon"><use href="#i-plus"/></svg> Add a book</button></div>
+        <div class="library-tools"><label class="search-field"><svg class="icon"><use href="#i-search"/></svg><input id="library-search" type="search" placeholder="Search by title, author, or tag" aria-label="Search your library"></label><label class="select-wrap"><span class="visually-hidden">Filter by category</span><select id="category-filter"><option value="">All categories</option></select></label><span class="library-count" id="library-count">0 books</span></div>
+        <div id="library-content"></div>
+        <div class="page-foot"><span>Everything here belongs to you.</span><span>BOOK DATA FROM <a href="https://openlibrary.org" target="_blank" rel="noopener noreferrer">OPEN LIBRARY ↗</a></span></div>
+      </section>
+    </main>
+  </div>
+  <dialog id="book-dialog" aria-labelledby="dialog-title"><div class="dialog-shell"><div class="dialog-header"><div><div class="section-kicker">YOUR READING ROOM</div><h2 id="dialog-title">Add a book</h2></div><button class="icon-button" id="close-dialog" aria-label="Close"><svg class="icon"><use href="#i-close"/></svg></button></div>
+    <div id="add-search-area"><p class="dialog-intro">Search Open Library to find a book and its cover, or add it yourself.</p><form id="book-search-form" class="modal-search"><label class="search-field"><svg class="icon"><use href="#i-search"/></svg><input id="book-search" type="search" placeholder="Search a title, author, or ISBN" autocomplete="off" aria-label="Search Open Library"></label><button class="button button-dark" type="submit">Search</button></form><div id="search-results" class="search-results" aria-live="polite"></div><div class="manual-row"><span>Can't find your book? No internet?</span><button class="text-link" type="button" id="manual-add">Add manually <svg class="icon"><use href="#i-arrow"/></svg></button></div></div>
+    <form id="book-form" class="hidden"><div class="form-heading"><strong id="form-heading">Book details</strong><button type="button" class="text-link hidden" id="back-to-search">← Back to search</button></div><p class="form-note" id="form-note">You can change every detail, including the suggested category and tags.</p><div class="form-grid"><div class="cover-editor"><div id="cover-preview" class="cover-preview"></div><label class="upload-label"><svg class="icon"><use href="#i-upload"/></svg> Upload cover<input id="cover-file" type="file" accept="image/png,image/jpeg,image/webp,image/avif" hidden></label><button type="button" class="remove-cover" id="remove-cover">Remove cover</button><span class="cover-help">Uploaded covers stay on this device and in your backup.</span></div><div class="form-fields"><label>Book title <span>*</span><input id="field-title" required maxlength="240" placeholder="e.g. The Discovery of India"></label><label>Author<input id="field-author" maxlength="200" placeholder="Author's name"></label><div class="two-fields"><label>Category <span>*</span><input id="field-category" required maxlength="80" list="category-options" placeholder="e.g. History"><datalist id="category-options"></datalist></label><label>Rating <small>optional</small><select id="field-rating"><option value="">Not rated</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></label></div><label>Tags <small>optional · separate with commas</small><input id="field-tags" maxlength="400" placeholder="e.g. Mughal India, Medieval history"></label><label>Cover image URL <small>optional</small><input id="field-cover" type="url" placeholder="https://…"></label><div class="details-hint" id="suggestion-hint">Category and tags are suggestions; edit them however you like.</div></div></div><div class="form-actions"><button type="button" class="button button-light" id="cancel-form">Cancel</button><button type="submit" class="button button-dark" id="save-book">Save book</button></div></form>
+  </div></dialog>
+  <dialog id="backup-dialog" aria-labelledby="backup-title"><div class="confirm-inner"><div class="section-kicker">YOUR LIBRARY, SAFEKEEPING</div><h2 id="backup-title">Back up your books</h2><p>Export a file to keep your library safe or import a backup from another device.</p><div class="backup-actions"><button type="button" id="mobile-export" class="button button-dark">Export backup</button><button type="button" id="mobile-import" class="button button-light">Import backup</button><button type="button" id="mobile-backup-close" class="button button-light">Cancel</button></div></div></dialog>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title"><div class="confirm-inner"><div class="section-kicker">JUST CHECKING</div><h2 id="confirm-title"></h2><p id="confirm-message"></p><div class="form-actions"><button id="confirm-cancel" class="button button-light">Cancel</button><button id="confirm-ok" class="button button-dark">Continue</button></div></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <noscript>This app needs JavaScript enabled to save your library.</noscript>
+</body></html>
